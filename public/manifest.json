@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "Tunsocks",
+	"version": "1.0",
+	"icons":
+	{
+		"48": "logo.png",
+		"128": "logo.png"
+	},
+	"browser_action": 
+	{
+		"default_icon": "logo.png",
+		"default_popup": "popup.html"
+	},
+	"permissions": ["background", "webRequest", "webRequestBlocking", "*://*/*"],
+	"background": {
+		"scripts": ["background.js"]
+	}
+}
