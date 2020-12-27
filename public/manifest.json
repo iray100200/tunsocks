@@ -12,7 +12,7 @@
 		"default_icon": "logo.png",
 		"default_popup": "popup.html"
 	},
-	"permissions": ["background", "webRequest", "webRequestBlocking", "*://*/*"],
+	"permissions": ["background", "webRequest", "webRequestBlocking", "proxy", "*://*/*"],
 	"background": {
 		"scripts": ["background.js"]
 	}
