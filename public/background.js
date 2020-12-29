@@ -1,12 +1,13 @@
 /* global chrome */
 
-function setProxy () {
-  var config = {
+function setProxy (host, port) {
+  const config = {
     mode: chrome.proxy.Mode.FIXED_SERVERS,
     rules: {
       singleProxy: {
         scheme: chrome.proxy.Scheme.SOCKS5,
-        host: "localhost"
+        host: host,
+        port: Number(port)
       },
       bypassList: ["baidu.com"]
     }
@@ -15,8 +16,7 @@ function setProxy () {
   chrome.proxy.settings.set({
     value: config, 
     scope: 'regular'
-  },
-  function(config) {
+  }, function(config) {
     console.log(config)
   })
 
@@ -25,4 +25,15 @@ function setProxy () {
   })
 }
 
-setProxy()
+chrome.runtime.onMessage.addListener(({ host, port, enable }) => {
+  if (enable) {
+    setProxy(host, port)
+  } else {
+    chrome.proxy.settings.set({
+      value: {
+        mode: 'direct'
+      }, 
+      scope: 'regular' 
+    })
+  }
+})
