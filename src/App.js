@@ -6,7 +6,7 @@ import { Form, Input, InputNumber, Switch, Button } from 'antd';
 function App() {
   const [host, setHost] = React.useState(localStorage.getItem('host'))
   const [port, setPort] = React.useState(localStorage.getItem('port') || 1081)
-  const [enable, setEnable] = React.useState(eval(localStorage.getItem('enable')))
+  const [enable, setEnable] = React.useState(localStorage.getItem('enable') === 'true' ? true : false)
   const handleChange = (values) => {
     for (let key in values) {
       localStorage.setItem(key, values[key])
@@ -33,14 +33,19 @@ function App() {
           <InputNumber min={0} max={65535} style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item name="enable" label="是否启用">
-          <Switch defaultChecked />
+          <Switch defaultChecked checked={enable} onChange={val => {
+            setEnable(val)
+          }} />
         </Form.Item>
         <Form.Item labelAlign="center">
           <Button block type="primary" htmlType="submit">
-            生效
+            提交配置
           </Button>
         </Form.Item>
       </Form>
+      <div style={{ textAlign: 'center', color: '#999' }}>
+        {localStorage.getItem('enable') === 'true' ? '已启用当前配置' : '未启用该配置'}
+      </div>
     </div>
   );
 }
